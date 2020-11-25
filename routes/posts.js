@@ -24,7 +24,7 @@ router.get('/:postId', async (req,res) => {
 
 });
 
-// update post
+// update name
 router.patch('/:postId', async (req,res) => {
     try {
         const updatedPost = await Post.updateOne(
@@ -37,6 +37,22 @@ router.patch('/:postId', async (req,res) => {
     }
 
 });
+
+// update url
+router.patch('/:postId', async (req,res) => {
+    try {
+        const updatedPost = await Post.updateOne(
+            {_id: req.params.postId},
+            { $set:{url:req.body.name } }
+        );
+        res.json(updatedPost)
+    } catch (err) {
+        res.json({message: err})
+    }
+
+});
+
+
 
 
 //this submit the post.

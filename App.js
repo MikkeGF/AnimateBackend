@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors')
 const app = express();
 const mongoose = require('mongoose');
+const https = require('https');
+const fs = require('fs');
 
 require('dotenv/config');
 
@@ -44,4 +46,9 @@ app.post('/post',(req,res) => {
     res.send('Working post')
 });
 
-app.listen(5000);
+const pass = process.env.PASS;
+https.createServer({
+    key: fs.readFileSync('./key.pem'),
+    cert: fs.readFileSync('./cert.pem'),
+    passphrase: pass
+}, app).listen(5000);

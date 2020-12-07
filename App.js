@@ -47,9 +47,5 @@ app.post('/post',(req,res) => {
 });
 
 
-https.createServer({
-    key: fs.readFileSync('./key.pem'),
-    cert: fs.readFileSync('./cert.pem'),
-    passphrase: '161194'
-}, app)
-.listen(4000);
+
+app.listen(4000);

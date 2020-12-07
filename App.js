@@ -21,7 +21,7 @@ app.use('/posts',postsRoute)
 // connect to DB
 
 const uri = process.env.ATLAS_URI;
-
+const port  = process.env.NODE_PORT
 mongoose.connect(uri,
 { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true
 
@@ -46,6 +46,12 @@ app.post('/post',(req,res) => {
     res.send('Working post')
 });
 
+let sslOptions = {
+    key: fs.readFileSync('./key.pem'),
+    cert: fs.readFileSync('./cert.pem'),
+    passphrase: process.env.PASS
+};
+
+let serverHttps = https.createServer(sslOptions, app).listen(4000)
 
 
-app.listen(4000);

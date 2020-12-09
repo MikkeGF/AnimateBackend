@@ -13,6 +13,7 @@ require('dotenv/config');
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 const postsRoute = require('./routes/posts');
 
 app.use('/posts',postsRoute)
@@ -46,12 +47,16 @@ app.post('/post',(req,res) => {
     res.send('Working post')
 });
 
-// let sslOptions = {
-//     key: fs.readFileSync('/etc/letsencrypt/live/mikkegf.me/fullchain.pem'),
-//     cert: fs.readFileSync('./cert.pem'),
-//     passphrase: process.env.PASS
-// };
-
-let serverHttps = https.createServer(sslOptions, app).listen(port)
+https.createServer(
+    {
+      key: fs.readFileSync('/etc/letsencrypt/live/mikkegf.me/privkey.pem'),
+      cert: fs.readFileSync('/etc/letsencrypt/live/mikkegf.me/cert.pem'),
+      ca: fs.readFileSync('/etc/letsencrypt/live/mikkegf.me/chain.pem'),
+    },
+    app
+  )
+  .listen(443, () => {
+    console.log('Listening...')
+  })
 
 

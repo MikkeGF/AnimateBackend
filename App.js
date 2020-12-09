@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors')
 const app = express();
 const mongoose = require('mongoose');
-const https = require('https');
-const fs = require('fs');
+// const https = require('https');
+// const fs = require('fs');
 
 require('dotenv/config');
 
@@ -52,6 +52,6 @@ app.post('/post',(req,res) => {
 //     passphrase: process.env.PASS
 // };
 
-let serverHttps = https.createServer(sslOptions, app).listen(port)
+app.listen(port)
 
 

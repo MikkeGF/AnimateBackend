@@ -46,11 +46,11 @@ app.post('/post',(req,res) => {
     res.send('Working post')
 });
 
-let sslOptions = {
-    key: fs.readFileSync('./key.pem'),
-    cert: fs.readFileSync('./cert.pem'),
-    passphrase: process.env.PASS
-};
+// let sslOptions = {
+//     key: fs.readFileSync('/etc/letsencrypt/live/mikkegf.me/fullchain.pem'),
+//     cert: fs.readFileSync('./cert.pem'),
+//     passphrase: process.env.PASS
+// };
 
 let serverHttps = https.createServer(sslOptions, app).listen(port)
 
